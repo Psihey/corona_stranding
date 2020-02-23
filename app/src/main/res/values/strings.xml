@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Coron_stranding</string>
+    <string name="app_name">CoronavirusStranding</string>
+    <string name="google_api_key">AIzaSyBV4hVgopP-pYZbLcUUn8yhLOHWrQY9mk4</string>
+    <string name="content_text"> \n WHO’s standard recommendations for the general public to reduce exposure to and transmission of a range of illnesses are as follows, which include hand and respiratory hygiene, and safe food practices:\n
+        \u25CF Frequently clean hands by using alcohol-based hand rub or soap and water;\n
+        \u25CF When coughing and sneezing cover mouth and nose with flexed elbow or tissue – throw tissue away immediately and wash hands;\n
+        \u25CF Avoid close contact with anyone who has fever and cough; \n
+        \u25CF If you have fever, cough and difficulty breathing seek medical care early and share previous travel history with your health care provider;\n
+       \u25CF When visiting live markets in areas currently experiencing cases of novel coronavirus, avoid direct unprotected contact with live animals and surfaces in contact with animals; \n
+        \u25CF The consumption of raw or undercooked animal products should be avoided. Raw meat, milk or animal organs should be handled with care, to avoid cross-contamination with uncooked foods, as per good food safety practices.</string>
 </resources>
