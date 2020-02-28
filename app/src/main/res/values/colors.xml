@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#F0D7A7</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="text_color">#FFFFFF</color>
+
+    <color name="color_standart">#D5914C</color>
+    <color name="color_standart_bottom">#D99D6E</color>
+    <color name="color_standart_status_bar">#F0D7A7</color>
+
+    <color name="color_safe">#4DA447</color>
+    <color name="color_safe_bottom">#6DB269</color>
+    <color name="color_safe_status_bar">#BFE7B1</color>
+
+    <color name="color_alarm">#E07250</color>
+    <color name="color_alarm_bottom">#DA776F</color>
+    <color name="color_alarm_status_bar">#F0BAA7</color>
+
+
+    <color name="color_radar_standart">#E8C180</color>
+    <color name="color_radar2_standart">#EBC294</color>
+    <color name="color_radar3_standart">#F7E7D2</color>
+
+    <color name="color_radar_safe">#9DD288</color>
+    <color name="color_radar2_safe">#B4D29B</color>
+    <color name="color_radar3_safe">#F5F3E4</color>
+
+
+    <color name="color_alarm_radar">#E89780</color>
+    <color name="color_alarm_radar2">#ECAD9B</color>
+    <color name="color_alarm_radar3">#F9E7DF</color>
+
+
 </resources>

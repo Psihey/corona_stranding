@@ -12,4 +12,7 @@ public interface SendDataListener {
     List<AttributesModel> getCoordinates();
 
     Map<String,Integer> getStatistic();
+
+    void startScan();
+
 }

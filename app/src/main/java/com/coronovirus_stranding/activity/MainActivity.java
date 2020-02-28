@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -42,6 +43,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import static com.coronovirus_stranding.util.DistanceUtils.distance;
@@ -54,8 +56,10 @@ public class MainActivity extends AppCompatActivity implements SendDataListener,
     public static final String CONFIRM = "confirm";
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
+
     @BindView(R.id.bottom_navigation_view)
     BottomNavigationView bottomNavigationView;
+
 
     private Fragment selectedFragment;
     private List<AttributesModel> distanceInKmWithProvince;
@@ -71,13 +75,6 @@ public class MainActivity extends AppCompatActivity implements SendDataListener,
         setContentView(R.layout.activity_main);
         registerEventBus();
         ButterKnife.bind(this);
-        if(checkLocationPermission()){
-            LocationManager locationManager = (LocationManager)
-                    getSystemService(Context.LOCATION_SERVICE);
-            LocationListener locationListener = new MyLocationListener();
-            locationManager.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER, 10000, 10, locationListener);
-        }
         replaceFragmentWithoutBackStack(this, new DistanceFragment(), R.id.main_activity_fragment_container, DistanceFragment.class.getSimpleName());
         bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
 
@@ -163,6 +160,17 @@ public class MainActivity extends AppCompatActivity implements SendDataListener,
         statistic.put(DEATH, totalDeath);
         statistic.put(CONFIRM, totalConfirmed);
         return statistic;
+    }
+
+    @Override
+    public void startScan(){
+        if (checkLocationPermission()) {
+            LocationManager locationManager = (LocationManager)
+                    getSystemService(Context.LOCATION_SERVICE);
+            LocationListener locationListener = new MyLocationListener();
+            locationManager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER, 10000, 10, locationListener);
+        }
     }
 
     @Override
