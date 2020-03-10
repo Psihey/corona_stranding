@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -57,7 +58,11 @@ public class CircleView extends View {
 
     public void setTextRadar(String textRadar,String colorText, String color1, String color2, String color3) {
         this.textRadar = textRadar;
-        this.textRadar2 ="from coronavirus";
+        if (!TextUtils.isEmpty(textRadar)){
+            this.textRadar2 ="from coronavirus";
+        }else {
+            this.textRadar2 ="";
+        }
         text.setColor(Color.parseColor(colorText));
         text2.setColor(Color.parseColor(colorText));
         drawPaint2.setColor(Color.parseColor(color1));

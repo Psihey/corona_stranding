@@ -5,24 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.coronovirus_stranding.view.CircleView
+    <com.coronovirus_stranding.view.CoronovirusView
         android:id="@+id/circle"
         android:layout_width="275dp"
         android:layout_height="275dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
         android:gravity="center" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/radar"
-        android:layout_width="275dp"
-        android:layout_height="275dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"
-        android:visibility="gone"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/radar2" />
 
     <TextView
         android:id="@+id/tv_get_started"
@@ -74,5 +63,21 @@
         android:textColor="@color/text_color"
         android:textSize="16sp"
         android:textStyle="bold" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/scan_again"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:visibility="gone"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_below="@+id/tv_province"
+        android:textSize="22sp"
+        android:textColor="@android:color/white"
+        android:padding="12dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        app:cornerRadius="22dp"
+        android:layout_centerHorizontal="true"
+        android:text="Scan Again"/>
 
 </RelativeLayout>

@@ -22,7 +22,9 @@ import com.coronovirus_stranding.event.DataSuccessfullyEvent;
 import com.coronovirus_stranding.model.AttributeComparator;
 import com.coronovirus_stranding.model.AttributesModel;
 import com.coronovirus_stranding.view.CircleView;
+import com.coronovirus_stranding.view.CoronovirusView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -54,14 +56,14 @@ public class DistanceFragment extends BaseFragment {
     @BindView(R.id.rl_container)
     ViewGroup container;
 
-    @BindView(R.id.radar)
-    LottieAnimationView lottieAnimationView;
-
     @BindView(R.id.circle)
-    CircleView circleView;
+    CoronovirusView circleView;
 
     @BindView(R.id.tv_get_started)
     TextView tvInformation;
+
+    @BindView(R.id.scan_again)
+    MaterialButton btnScanAgain;
 
     private SendDataListener sendDataListener;
     private List<AttributesModel> distanceInKmWithProvince;
@@ -88,14 +90,15 @@ public class DistanceFragment extends BaseFragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
         unregisterEventBus();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        circleView.setLoading(false);
         distanceInKmWithProvince = sendDataListener.getData();
         window = getActivity().getWindow();
         navBar = getActivity().findViewById(R.id.bottom_navigation_view);
@@ -106,7 +109,7 @@ public class DistanceFragment extends BaseFragment {
             totalDeath = statistic.get(DEATH);
             setDataInView();
         }
-        if (distance == -1){
+        if (distance == -1) {
             tvInformation.setVisibility(View.VISIBLE);
         }
     }
@@ -115,13 +118,21 @@ public class DistanceFragment extends BaseFragment {
     @OnClick(R.id.circle)
     void startScan() {
         sendDataListener.startScan();
-        lottieAnimationView.setVisibility(View.VISIBLE);
         tvInformation.setVisibility(View.GONE);
+        circleView.setLoading(true);
+    }
+
+    @OnClick(R.id.scan_again)
+    void startScanAgain() {
+        sendDataListener.startScan();
+        tvInformation.setVisibility(View.GONE);
+        btnScanAgain.setVisibility(View.GONE);
+        circleView.setLoading(true);
     }
 
     @SuppressLint("ResourceType")
     private void setDataInView() {
-        lottieAnimationView.setVisibility(View.GONE);
+        circleView.setLoading(false);
         Collections.sort(distanceInKmWithProvince, new AttributeComparator());
         distance = Math.round(distanceInKmWithProvince.get(0).getDistance());
         SharedPref.getInstance().saveUserDistance(distance);
@@ -129,18 +140,19 @@ public class DistanceFragment extends BaseFragment {
         tvProvince.setText("The closest province is " + distanceInKmWithProvince.get(0).getCountryRegion());
         tvTotalDeath.setText("Total death: " + totalDeath);
         tvTotalConfirmed.setText("Total confirmed: " + totalConfirmed);
-
-        if (distance > 400) {
-            circleView.setTextRadar(distance + " km", getResources().getString(R.color.color_radar_safe), getResources().getString(R.color.color_radar_safe), getResources().getString(R.color.color_radar2_safe), getResources().getString(R.color.color_radar3_safe));
+        circleView.setTextRadar(String.valueOf(distance));
+        if (distance > 200) {
             viewGroup.setBackgroundColor(getResources().getColor(R.color.color_safe));
             navBar.setBackgroundColor(getResources().getColor(R.color.color_safe_bottom));
             window.setStatusBarColor(ContextCompat.getColor(getActivity(), R.color.color_safe_status_bar));
         } else {
-            circleView.setTextRadar(distance + " km", getResources().getString(R.color.color_alarm_radar), getResources().getString(R.color.color_alarm_radar), getResources().getString(R.color.color_alarm_radar2), getResources().getString(R.color.color_alarm_radar3));
             viewGroup.setBackgroundColor(getResources().getColor(R.color.color_alarm));
             navBar.setBackgroundColor(getResources().getColor(R.color.color_alarm_bottom));
             window.setStatusBarColor(ContextCompat.getColor(getActivity(), R.color.color_alarm_status_bar));
         }
+        circleView.setClickable(false);
+        btnScanAgain.setVisibility(View.VISIBLE);
+
     }
 
     @Override

@@ -13,8 +13,10 @@ import com.coronovirus_stranding.model.AttributesModel;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -54,7 +56,6 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
         unregisterEventBus();
     }
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -64,6 +65,9 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
         coordinatesList = sendDataListener.getCoordinates();
         if (coordinatesList != null) {
             setDataInView();
+        }else {
+            Snackbar snackbar = Snackbar.make(googleMapView,"You should start scan before watch the map",Snackbar.LENGTH_LONG);
+            snackbar.show();
         }
     }
 
@@ -76,6 +80,7 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
         if (coordinatesList != null) {
+            this.googleMap.setMyLocationEnabled(true);
             setDataInView();
         }
     }
@@ -87,9 +92,13 @@ public class MapFragment extends BaseFragment implements OnMapReadyCallback {
     }
 
     private void setDataInView() {
-        for (AttributesModel attributesModel : coordinatesList){
-            if (googleMap!= null){
-                googleMap.addMarker(new MarkerOptions().position(new LatLng( attributesModel.getLat(), attributesModel.getLong())).title("Alarm"));
+        for (AttributesModel attributesModel : coordinatesList) {
+            if (googleMap != null) {
+                double recovered = (double) attributesModel.getRecovered();
+                MarkerOptions alarm = new MarkerOptions().position(new LatLng(attributesModel.getLat(), attributesModel.getLong())).title("Confirmed: " + attributesModel.getConfirmed()
+                        + ". " + "Deaths: " + attributesModel.getDeaths() + ". " + "Recovered: " + (int) recovered);
+                alarm.icon(BitmapDescriptorFactory.fromResource(R.drawable.virus));
+                googleMap.addMarker(alarm);
             }
         }
     }

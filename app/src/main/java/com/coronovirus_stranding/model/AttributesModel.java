@@ -35,10 +35,13 @@ public class AttributesModel {
 
     private Double distance;
 
-    public AttributesModel(String countryRegion, Double lat, Double _long) {
+    public AttributesModel(String countryRegion, Double lat, Double _long, Integer confirmed, Integer deaths,Object recovered) {
         this.countryRegion = countryRegion;
         this.lat = lat;
         this._long = _long;
+        this.confirmed = confirmed;
+        this.deaths = deaths;
+        this.recovered = recovered;
     }
 
     public AttributesModel(String countryRegion, Double distance) {
